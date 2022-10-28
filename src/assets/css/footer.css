@@ -1,0 +1,61 @@
+#app__footer {
+    background-color: var(--color-footer);
+    padding-top: 2rem;
+}
+
+#contact-1 {
+    display: flex;
+    margin-bottom: 3rem;
+}
+
+.contact-item{
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+}
+
+.contact-item > img {
+    width: 4rem;
+    object-fit: contain;
+    margin-right: 1rem;
+}
+
+.contact-item * {
+    font-size: 1.5rem;
+}
+
+#contact-2 {
+    margin-bottom: 3rem;
+}
+
+.contact-2-item {
+    margin-right: 2rem;
+}
+
+.contact-2-item * {
+    font-size: 1.5rem;
+    color: var(--color-text-blur);
+}
+
+.contact-2-item > h1 {
+    color: var(--color-black);
+    font-weight: 800;
+}
+
+#commit {
+    margin: 2rem 0;
+    display: flex;
+    align-items: center;
+}
+
+#commit > img {
+    width: 7rem;
+    object-fit: contain;
+    margin-right: 1rem;
+}
+
+#footer {
+    background-color: var(--color-black);
+    color: white;
+    padding: 2rem;
+}
