@@ -305,7 +305,7 @@ export default {
       }
 
       // tính tổng tiền lại
-      this.totalMoney += e.price * e.amount;
+      this.totalMoney += parseInt(e.price) * parseInt(e.amount);
 
       //set cookies
       VueCookies.set("product", JSON.stringify(this.productsInCart));
@@ -313,10 +313,12 @@ export default {
   },
   updated() {
     // update tổng tiền khi xóa khỏi cart
-    this.totalMoney = 0;
+    let tempTotalMoney = 0;
     for (let product of this.productsInCart) {
-      this.totalMoney += parseInt(product.price) * parseInt(product.amount);
+      tempTotalMoney += parseInt(product.price) * parseInt(product.amount);
     }
+
+    this.totalMoney = tempTotalMoney;
   },
 };
 </script>

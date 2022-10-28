@@ -127,36 +127,6 @@ export default {
         this.totalMoney += parseInt(product.price) * parseInt(product.amount);
       }
     }
-
-    mitter.on("addProductToCart", (e) => {
-      let isDuplicate = false;
-
-      // Kiểm tra sản phầm thêm vào trung với sản phầm có trước đó thì cộng dồn số lượng
-      for (let product of this.productsInCart) {
-        if (
-          product._id == e._id &&
-          product.memory == e.memory &&
-          product.color == e.color
-        ) {
-          product.amount = (
-            parseInt(e.amount) + parseInt(product.amount)
-          ).toString();
-          isDuplicate = true;
-          break;
-        }
-      }
-
-      // nếu trùng => không push vào cookie
-      if (!isDuplicate) {
-        this.productsInCart.push(e);
-      }
-
-      // tính tổng tiền lại
-      this.totalMoney += e.price * e.amount;
-
-      //set cookies
-      VueCookies.set("product", JSON.stringify(this.productsInCart));
-    });
   },
   mounted() {
     mitter.on("updateProductsInCart", () => {

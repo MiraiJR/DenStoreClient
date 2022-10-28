@@ -278,8 +278,6 @@ export default {
       this.amountProduct++;
     },
     addToCart() {
-      let productToCart = {};
-
       if (
         !document.querySelector(".options__memory-item-chose") ||
         !document.querySelector(".options__color-item-chose")
@@ -288,7 +286,7 @@ export default {
       } else if (this.product.state === "OUTOFSTOCKING") {
         alert("Sản phẩm đã hết hàng rồi!");
       } else {
-        productToCart = {
+        let productToCart = {
           productname: this.product.productname,
           price: this.product.price,
           productimage: this.product.productimage,
@@ -303,7 +301,6 @@ export default {
             .getAttribute("data-value"),
           _id: this.product._id,
         };
-
         emitter.emit("addProductToCart", productToCart);
       }
     },
