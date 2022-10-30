@@ -115,7 +115,7 @@
               </div>
               <div class="col-12">
                 <div class="billing__left-item">
-                  <label for="notice">Tỉnh/Thành phố *</label>
+                  <label for="notice">Ghi chú</label>
                   <textarea
                     v-model="this.userInfor.notice"
                     id="notice"
@@ -144,7 +144,7 @@
                 :href="`/san-pham/` + product._id"
                 class="product-in-cart-image"
               >
-                <img :src="product.productimage" alt="" srcset="" />
+                <img :src="product.productimage[0]" alt="" srcset="" />
               </a>
               <div class="product-in-cart-detail">
                 <a :href="`/san-pham/` + product._id">{{

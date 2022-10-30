@@ -3,7 +3,7 @@
     <div class="col-4" v-for="product in this.products" :key="product._id">
       <div class="category__products-item">
         <a :href="`/san-pham/` + product._id">
-          <img :src="product.productimage" alt="" />
+          <img :src="product.productimage[0]" alt="" />
         </a>
         <div class="category__products-item-detail">
           <div class="category__products-item-detail-category">
@@ -48,6 +48,8 @@
 
 <script>
 import axios from "axios";
+import { useRoute } from "vue-router";
+import { computed } from "vue";
 export default {
   props: {
     category: {
@@ -60,18 +62,35 @@ export default {
     };
   },
   methods: {},
-  created() {
-    axios
-      .get(
-        `https://server-denstore.herokuapp.com/api/products/category/${this.category}`
+  async created() {
+    const route = useRoute();
+    const path = computed(() => route.path);
+    const separatePath = path.value.split("/");
+    if (
+      separatePath[separatePath.length - 1].includes(
+        separatePath[separatePath.length - 2]
       )
-      .then((res) => {
-        this.products = res.data.data;
-      })
-      .catch((err) => {
-        console.log(err);
-        return;
-      });
+    ) {
+      await axios
+        .get(`http://localhost:5000/api/products/firm/${this.category}`)
+        .then((res) => {
+          this.products = res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+          return;
+        });
+    } else {
+      await axios
+        .get(`http://localhost:5000/api/products/category/${this.category}`)
+        .then((res) => {
+          this.products = res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+          return;
+        });
+    }
   },
 };
 </script>

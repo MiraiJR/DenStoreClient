@@ -178,7 +178,7 @@
 
     <list-products-view
       :idsPicture="'https://denstore.vn/wp-content/uploads/2021/09/Den-1-321x1024.jpg'"
-      :category="'mobile'"
+      :category="'dien-thoai'"
     />
     <list-products-view
       :idsPicture="'https://denstore.vn/wp-content/uploads/2021/09/Den-2-321x1024.jpg'"
@@ -186,7 +186,7 @@
     />
     <list-products-view
       :idsPicture="'https://denstore.vn/wp-content/uploads/2021/09/Den-3-321x1024.jpg'"
-      :category="'watch'"
+      :category="'dong-ho'"
     />
     <!-- <list-products-view :idsPicture="'ads-3.jpg'" :category="'ipad'" />
     <list-products-view :idsPicture="'ads-3.jpg'" :category="'watch'" /> -->

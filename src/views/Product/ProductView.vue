@@ -3,7 +3,17 @@
     <div class="product__header">
       <div class="row">
         <div id="product__img" class="col-4">
-          <img :src="this.product.productimage" alt="" srcset="" />
+          <img :src="this.curImage" alt="" />
+          <div class="product__img-list">
+            <img
+              v-for="image in this.product.productimage"
+              :key="image"
+              :src="image"
+              alt=""
+              srcset=""
+              @click="viewImage(image)"
+            />
+          </div>
           <div
             v-if="[this.product.saleoff === 0 ? false : true]"
             class="product__sale"
@@ -56,7 +66,7 @@
               }}
             </span>
             <span class="fs-15">
-              {{ this.product.price }}
+              {{ this.priceConvert }}
             </span>
           </div>
           <div class="detail__options">
@@ -170,41 +180,115 @@
             </div>
           </div>
           <div class="product__description-content">
-            <div v-if="this.stateContentDescription === 'mo-ta'">
-              Camera được cải tiến iPhone 6s được nâng cấp độ phân giải camera
-              sau lên 12 MP (thay vì 8 MP như trên iPhone 6) camera có tốc độ
-              lấy nét và chụp nhanh, thao tác chạm để chụp nhẹ nhàng. Chất lượng
-              ảnh trong các điều kiện chụp khác nhau tốt. Camera trước với độ
-              phân giải 5 MP cho hình ảnh với độ chi tiết rõ nét, đặc biệt máy
-              còn có tính năng Retina Flash, sẽ giúp màn hình sáng lên như đèn
-              Flash để bức ảnh khi bạn chụp trong điều kiện thiếu sáng tốt hơn.
-              Sắc hồng vàng bắt mắt và khác lạ Khác biệt duy nhất trong thiết kế
-              của iPhone 6s và iPhone 6 là ở màu sắc mới: màu hồng vàng lạ mắt
-              lần đầu xuất hiện, phù hợp với phần lớn các bạn nữ và số ít các
-              bạn nam thích sự khác biệt độc đáo. Cảm ứng 3D Touch độc đáo 3D
-              Touch là tính năng hoàn toàn mới trên iPhone 6s, cho phép người
-              dùng xem trước được các tùy chọn nhanh dựa vào lực nhấn mạnh hay
-              nhẹ mà không cần phải nhấp vào ứng dụng. Để sử dụng, bạn chỉ cần
-              nhấn vào màn hình hoặc ứng dụng 1 lực mạnh đến khi máy rung nhẹ là
-              có thể xem được. Đáng tiếc là tính năng 3D Touch này chỉ mới được
-              áp dụng trên các ứng dụng như: danh bạ, camera, mail, máy ảnh,
-              facebook … Sức mạnh của bộ vi xử lý A9 mới nhất iPhone 6s sử dụng
-              vi xử lý A9 tốc độ 1.8 GHz (iPhone 6 chỉ với 1.4 GHz), giúp máy
-              phản hồi các tác vụ nhanh, chạy cùng lúc nhiều ứng dụng mượt mà.
-              Tuy rằng camera vẫn lồi nhưng bạn có thể yên tâm sử dụng mà không
-              lo trầy xước ống kính. Viên pin chỉ có dung lượng 1715 mAh khá
-              thấp so với các sản phẩm cùng phân khúc khác, tuy nhiên bạn vẫn có
-              thể an tâm sử dụng máy trong một ngày nhờ chế độ tiết kiệm pin khá
-              tốt của Apple. Ngoài ra iPhone 6s còn được trang bị các công nghệ
-              tiên tiến nhất hiện nay như: Wifi chuẩn ac, tính năng kết nối 4G
-              thời thượng, cho tốc độ kết nối và tải dữ liệu rất nhanh. Cảm biến
-              vân tay cải tiến giúp nhận diện và mở khóa nhanh hơn.
+            <div
+              id="content-mo-ta"
+              v-if="this.stateContentDescription === 'mo-ta'"
+            >
+              {{ this.product.description }}
             </div>
             <div v-if="this.stateContentDescription === 'thong-tin-bo-sung'">
               abc
             </div>
             <div v-if="this.stateContentDescription === 'danh-gia'">
-              đánh giá ở đây
+              <div class="comment__box">
+                <div class="comment__box-label">
+                  Đánh giá sản phẩm {{ this.product.productname }}
+                </div>
+                <div class="comment__box-content">
+                  <label for="commentContent">Nhận xét của bạn</label>
+                  <textarea
+                    id="commentContent"
+                    v-model="this.comment.content"
+                    cols="30"
+                    rows="10"
+                  ></textarea>
+                </div>
+                <div class="comment__box-user">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="comment__box-user-item">
+                        <label for="commentName">Tên *</label>
+                        <input
+                          v-model="this.comment.username"
+                          id="commentName"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="comment__box-user-item">
+                        <label for="commentEmail">Email *</label>
+                        <input
+                          v-model="this.comment.email"
+                          id="commentEmail"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" @click="sendComment">Gửi đi</button>
+              </div>
+              <section style="background-color: #e7effd">
+                <div class="container my-5 py-5 text-dark">
+                  <div class="row d-flex justify-content-center">
+                    <div class="col-md-11 col-lg-9 col-xl-7">
+                      <div
+                        class="d-flex flex-start mt-4"
+                        v-for="itemComment in this.listComment"
+                        :key="itemComment._id"
+                      >
+                        <img
+                          class="rounded-circle shadow-1-strong me-3"
+                          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp"
+                          alt="avatar"
+                          width="65"
+                          height="65"
+                        />
+                        <div class="card w-100">
+                          <div class="card-body p-4">
+                            <div class="">
+                              <h5 class="card-body-username">
+                                {{ itemComment.username }}
+                              </h5>
+                              <p class="small">
+                                {{
+                                  new Date(itemComment.createdAt).getDate() +
+                                  "/" +
+                                  (new Date(itemComment.createdAt).getMonth() +
+                                    1) +
+                                  "/" +
+                                  new Date(itemComment.createdAt).getFullYear()
+                                }}
+                              </p>
+                              <p class="fs-15">
+                                {{ itemComment.content }}
+                              </p>
+
+                              <!-- <div
+                                class="d-flex justify-content-between align-items-center"
+                              >
+                                <div class="d-flex align-items-center">
+                                  <a href="#!" class="link-muted me-2"
+                                    ><i class="fas fa-thumbs-up me-1"></i>158</a
+                                  >
+                                  <a href="#!" class="link-muted"
+                                    ><i class="fas fa-thumbs-down me-1"></i
+                                    >13</a
+                                  >
+                                </div>
+                                <a href="#!" class="link-muted"
+                                  ><i class="fas fa-reply me-1"></i> Reply</a
+                                >
+                              </div> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
             <div
               class="see-more"
@@ -266,9 +350,30 @@ export default {
       product: {},
       stateContentDescription: "mo-ta",
       isShowExpandContent: false,
+      curImage: "",
+      priceConvert: "",
+      comment: {},
+      listComment: [],
     };
   },
   methods: {
+    async sendComment() {
+      this.comment.idproduct = this.product._id;
+      await axios
+        .post(`http://localhost:5000/api/comments`, this.comment)
+        .then((res) => {
+          this.listComment.push(res.data.comment);
+        })
+        .catch((err) => {
+          console.log(err);
+          return;
+        });
+
+      this.comment = {};
+    },
+    viewImage(image) {
+      this.curImage = image;
+    },
     subtractAmount() {
       if (this.amountProduct != 1) {
         this.amountProduct--;
@@ -345,26 +450,40 @@ export default {
         ).style.maxHeight = "30rem";
       }
     },
-    changeStateContentDescription() {
+    async changeStateContentDescription() {
       document
         .querySelector(".product__description-navigation-item-active")
         .classList.remove("product__description-navigation-item-active");
       event.target.classList.add("product__description-navigation-item-active");
 
       this.stateContentDescription = event.target.id;
+      if (this.stateContentDescription == "danh-gia") {
+        await axios
+          .get(`http://localhost:5000/api/comments/${this.product._id}`)
+          .then((res) => {
+            this.listComment = res.data.data;
+          })
+          .catch((err) => {
+            console.log(err);
+            return;
+          });
+      }
     },
   },
-  created() {
+  async created() {
     const route = useRoute();
-
     const path = computed(() => route.path);
-
     const idProduct = path.value.split("/")[2];
 
-    axios
-      .get(`https://server-denstore.herokuapp.com/api/products/${idProduct}`)
+    await axios
+      .get(`http://localhost:5000/api/products/${idProduct}`)
       .then((res) => {
         this.product = res.data.data;
+        this.curImage = this.product.productimage[0];
+        this.priceConvert = this.product.price.toLocaleString("it-IT", {
+          style: "currency",
+          currency: "VND",
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -372,23 +491,21 @@ export default {
       });
   },
   mounted() {
-    if (
-      document.querySelector(".product__description-content > div")
-        .offsetHeight === 300
-    ) {
-      this.isShowExpandContent = true;
-    } else {
-      this.isShowExpandContent = false;
+    if (document.querySelector("#content-mo-ta")) {
+      if (document.querySelector("#content-mo-ta").offsetHeight === 300) {
+        this.isShowExpandContent = true;
+      } else {
+        this.isShowExpandContent = false;
+      }
     }
   },
   updated() {
-    if (
-      document.querySelector(".product__description-content > div")
-        .offsetHeight === 300
-    ) {
-      this.isShowExpandContent = true;
-    } else {
-      this.isShowExpandContent = false;
+    if (document.querySelector("#content-mo-ta")) {
+      if (document.querySelector("#content-mo-ta").offsetHeight === 300) {
+        this.isShowExpandContent = true;
+      } else {
+        this.isShowExpandContent = false;
+      }
     }
   },
 };

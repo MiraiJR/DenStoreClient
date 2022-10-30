@@ -90,7 +90,7 @@
                       :href="`/san-pham/` + product._id"
                       class="product-in-search-image"
                     >
-                      <img :src="product.productimage" alt="" srcset="" />
+                      <img :src="product.productimage[0]" alt="" srcset="" />
                     </a>
                     <div class="product-in-search-detail">
                       <a :href="`/san-pham/` + product._id" class="fs-15">{{
@@ -153,7 +153,7 @@
                     :href="`/san-pham/` + product._id"
                     class="product-in-cart-image"
                   >
-                    <img :src="product.productimage" alt="" srcset="" />
+                    <img :src="product.productimage[0]" alt="" srcset="" />
                   </a>
                   <div class="product-in-cart-detail">
                     <a :href="`/san-pham/` + product._id" class="bold-text">{{
@@ -236,9 +236,7 @@ export default {
     handleSearch() {
       if (this.inputSearch === "") {
         axios
-          .get(
-            `https://server-denstore.herokuapp.com/api/products/search/get/all`
-          )
+          .get(`http://localhost:5000/api/products/search/get/all`)
           .then((res) => {
             this.productsAfterSearch = res.data.data;
           })
@@ -248,9 +246,7 @@ export default {
           });
       } else {
         axios
-          .get(
-            `https://server-denstore.herokuapp.com/api/products/search/${this.inputSearch}`
-          )
+          .get(`http://localhost:5000/api/products/search/${this.inputSearch}`)
           .then((res) => {
             this.productsAfterSearch = res.data.data;
           })
@@ -309,6 +305,19 @@ export default {
 
       //set cookies
       VueCookies.set("product", JSON.stringify(this.productsInCart));
+    });
+  },
+  mounted() {
+    window.addEventListener("scroll", async () => {
+      if (window.top.scrollY >= 190) {
+        if (document.getElementById("app__header")) {
+          document.getElementById("app__header").id = "app__header-fixed";
+        }
+      } else {
+        if (document.getElementById("app__header-fixed")) {
+          document.getElementById("app__header-fixed").id = "app__header";
+        }
+      }
     });
   },
   updated() {

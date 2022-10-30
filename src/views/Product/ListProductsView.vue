@@ -23,7 +23,7 @@
             >
               <div class="list__products-item">
                 <a :href="`/san-pham/` + product._id">
-                  <img :src="product.productimage" alt="" />
+                  <img :src="product.productimage[0]" alt="" />
                 </a>
                 <div class="blur-text fs-13">{{ product.category }}</div>
                 <a :href="`/san-pham/` + product._id" class="fs-15 bold-text">{{
@@ -88,18 +88,9 @@ export default {
     };
   },
   created() {
-    if (this.category === "mobile") {
-      this.linkCategory = "dien-thoai";
-    } else if (this.category === "tablet") {
-      this.linkCategory = "tablet";
-    } else if (this.category === "watch") {
-      this.linkCategory = "dong-ho";
-    }
-
+    this.linkCategory = this.category;
     axios
-      .get(
-        `https://server-denstore.herokuapp.com/api/products/category/${this.category}`
-      )
+      .get(`http://localhost:5000/api/products/category/${this.category}`)
       .then((res) => {
         this.products = res.data.data;
       })

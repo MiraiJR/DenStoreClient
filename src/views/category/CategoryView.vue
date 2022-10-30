@@ -168,15 +168,7 @@ export default {
       this.isShowSonOfNavigationItem = true;
     }
 
-    if (this.idProduct == "dien-thoai") {
-      this.category = "mobile";
-    } else if (this.idProduct == "tablet") {
-      this.category = "ipad";
-    } else if (this.idProduct == "dong-ho") {
-      this.category = "watch";
-    } else if (this.idProduct == "phu-kien") {
-      this.category = "";
-    }
+    this.category = this.idProduct;
   },
   mounted() {
     if (this.isShowSonOfNavigationItem) {
