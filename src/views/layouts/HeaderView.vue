@@ -236,7 +236,9 @@ export default {
     handleSearch() {
       if (this.inputSearch === "") {
         axios
-          .get(`http://localhost:5000/api/products/search/get/all`)
+          .get(
+            `https://server-denstore.herokuapp.com/api/products/search/get/all`
+          )
           .then((res) => {
             this.productsAfterSearch = res.data.data;
           })
@@ -246,7 +248,9 @@ export default {
           });
       } else {
         axios
-          .get(`http://localhost:5000/api/products/search/${this.inputSearch}`)
+          .get(
+            `https://server-denstore.herokuapp.com/api/products/search/${this.inputSearch}`
+          )
           .then((res) => {
             this.productsAfterSearch = res.data.data;
           })

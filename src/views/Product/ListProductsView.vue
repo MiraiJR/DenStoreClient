@@ -90,7 +90,9 @@ export default {
   created() {
     this.linkCategory = this.category;
     axios
-      .get(`http://localhost:5000/api/products/category/${this.category}`)
+      .get(
+        `https://server-denstore.herokuapp.com/api/products/category/${this.category}`
+      )
       .then((res) => {
         this.products = res.data.data;
       })

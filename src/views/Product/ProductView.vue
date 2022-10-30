@@ -360,7 +360,10 @@ export default {
     async sendComment() {
       this.comment.idproduct = this.product._id;
       await axios
-        .post(`http://localhost:5000/api/comments`, this.comment)
+        .post(
+          `https://server-denstore.herokuapp.com/api/comments`,
+          this.comment
+        )
         .then((res) => {
           this.listComment.push(res.data.comment);
         })
@@ -459,7 +462,9 @@ export default {
       this.stateContentDescription = event.target.id;
       if (this.stateContentDescription == "danh-gia") {
         await axios
-          .get(`http://localhost:5000/api/comments/${this.product._id}`)
+          .get(
+            `https://server-denstore.herokuapp.com/api/comments/${this.product._id}`
+          )
           .then((res) => {
             this.listComment = res.data.data;
           })
@@ -476,7 +481,7 @@ export default {
     const idProduct = path.value.split("/")[2];
 
     await axios
-      .get(`http://localhost:5000/api/products/${idProduct}`)
+      .get(`https://server-denstore.herokuapp.com/api/products/${idProduct}`)
       .then((res) => {
         this.product = res.data.data;
         this.curImage = this.product.productimage[0];
