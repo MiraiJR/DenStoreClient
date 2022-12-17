@@ -72,9 +72,7 @@ export default {
       )
     ) {
       await axios
-        .get(
-          `https://server-denstore.herokuapp.com/api/products/firm/${this.category}`
-        )
+        .get(`http://localhost:5000/api/products/firm/${this.category}`)
         .then((res) => {
           this.products = res.data.data;
         })
@@ -84,9 +82,7 @@ export default {
         });
     } else {
       await axios
-        .get(
-          `https://server-denstore.herokuapp.com/api/products/category/${this.category}`
-        )
+        .get(`http://localhost:5000/api/products/category/${this.category}`)
         .then((res) => {
           this.products = res.data.data;
         })

@@ -91,7 +91,7 @@ export default {
     this.linkCategory = this.category;
     axios
       .get(
-        `https://server-denstore.herokuapp.com/api/products/category/${this.category}`
+        `https://denstore-server.onrender.com/api/products/category/${this.category}`
       )
       .then((res) => {
         this.products = res.data.data;

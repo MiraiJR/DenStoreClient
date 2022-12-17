@@ -34,7 +34,7 @@
               <i class="fa-solid fa-caret-down"></i>
             </a>
             <div class="header__center-item-navigation">
-              <a href="/danh-muc-san-pham/tablet/ipad">Ipad</a>
+              <a href="/danh-muc-san-pham/tablet/tablet-apple">Apple</a>
             </div>
           </div>
           <div class="header__center-item">
@@ -236,9 +236,7 @@ export default {
     handleSearch() {
       if (this.inputSearch === "") {
         axios
-          .get(
-            `https://server-denstore.herokuapp.com/api/products/search/get/all`
-          )
+          .get(`http://localhost:5000/api/products/search/get/all`)
           .then((res) => {
             this.productsAfterSearch = res.data.data;
           })
@@ -248,9 +246,7 @@ export default {
           });
       } else {
         axios
-          .get(
-            `https://server-denstore.herokuapp.com/api/products/search/${this.inputSearch}`
-          )
+          .get(`http://localhost:5000/api/products/search/${this.inputSearch}`)
           .then((res) => {
             this.productsAfterSearch = res.data.data;
           })

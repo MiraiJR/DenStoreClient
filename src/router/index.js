@@ -47,14 +47,32 @@ const routes = [
           {
             path: "tablet",
             component: CategoryView,
+            children: [
+              {
+                path: ":id",
+                component: CategoryView,
+              },
+            ],
           },
           {
             path: "dong-ho",
             component: CategoryView,
+            children: [
+              {
+                path: ":id",
+                component: CategoryView,
+              },
+            ],
           },
           {
             path: "phu-kien",
             component: CategoryView,
+            children: [
+              {
+                path: ":id",
+                component: CategoryView,
+              },
+            ],
           },
           {
             path: "pathMatch(.*)*",

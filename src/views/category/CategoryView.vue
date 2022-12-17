@@ -83,7 +83,9 @@
                 </span>
               </div>
               <div class="navigation__products-item-content">
-                <a href="/danh-muc-san-pham/tablet/tablet-ipad" id="tablet-ipad"
+                <a
+                  href="/danh-muc-san-pham/tablet/tablet-apple"
+                  id="tablet-apple"
                   >Ipad</a
                 >
               </div>

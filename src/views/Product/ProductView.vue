@@ -70,7 +70,7 @@
             </span>
           </div>
           <div class="detail__options">
-            <div class="options__memory">
+            <div class="options__memory" v-if="this.product.memory">
               <div class="row g-0">
                 <div class="col-4 options__memory-title fs-15">MEMORY:</div>
                 <div class="col-8">
@@ -85,7 +85,7 @@
                 </div>
               </div>
             </div>
-            <div class="options__color">
+            <div class="options__color" v-if="this.product.color">
               <div class="row g-0">
                 <div class="col-4 fs-15 options__color-title">COLOR:</div>
                 <div class="col-8">
@@ -360,10 +360,7 @@ export default {
     async sendComment() {
       this.comment.idproduct = this.product._id;
       await axios
-        .post(
-          `https://server-denstore.herokuapp.com/api/comments`,
-          this.comment
-        )
+        .post(`https://denstore-server.onrender.com/api/comments`, this.comment)
         .then((res) => {
           this.listComment.push(res.data.comment);
         })
@@ -463,7 +460,7 @@ export default {
       if (this.stateContentDescription == "danh-gia") {
         await axios
           .get(
-            `https://server-denstore.herokuapp.com/api/comments/${this.product._id}`
+            `https://denstore-server.onrender.com/api/comments/${this.product._id}`
           )
           .then((res) => {
             this.listComment = res.data.data;
@@ -481,7 +478,7 @@ export default {
     const idProduct = path.value.split("/")[2];
 
     await axios
-      .get(`https://server-denstore.herokuapp.com/api/products/${idProduct}`)
+      .get(`https://denstore-server.onrender.com/api/products/${idProduct}`)
       .then((res) => {
         this.product = res.data.data;
         this.curImage = this.product.productimage[0];
