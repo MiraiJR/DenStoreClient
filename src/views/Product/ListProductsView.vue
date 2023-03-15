@@ -85,14 +85,23 @@ export default {
     return {
       linkCategory: "",
       products: [],
+      originalUrl: "https://denstore-server.onrender.com",
     };
   },
   created() {
+    axios
+      .get(`${this.originalUrl}/api/products`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        return;
+      });
+
     this.linkCategory = this.category;
     axios
-      .get(
-        `https://denstore-server.onrender.com/api/products/category/${this.category}`
-      )
+      .get(`${this.originalUrl}/api/products/category/${this.category}`)
       .then((res) => {
         this.products = res.data.data;
       })
@@ -109,6 +118,7 @@ export default {
   width: 100%;
   object-fit: contain;
 }
+
 .list__products-title {
   display: flex;
   justify-content: space-between;
@@ -140,6 +150,7 @@ export default {
   padding: 1rem;
   margin: 1rem 0;
 }
+
 .list__products-item > a > img {
   width: 20rem;
   min-height: 20rem;

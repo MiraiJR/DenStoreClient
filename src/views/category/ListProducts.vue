@@ -59,6 +59,7 @@ export default {
   data() {
     return {
       products: [],
+      originalUrl: "https://denstore-server.onrender.com",
     };
   },
   methods: {},
@@ -72,7 +73,7 @@ export default {
       )
     ) {
       await axios
-        .get(`http://localhost:5000/api/products/firm/${this.category}`)
+        .get(`${this.originalUrl}/api/products/firm/${this.category}`)
         .then((res) => {
           this.products = res.data.data;
         })
@@ -82,7 +83,7 @@ export default {
         });
     } else {
       await axios
-        .get(`http://localhost:5000/api/products/category/${this.category}`)
+        .get(`${this.originalUrl}/api/products/category/${this.category}`)
         .then((res) => {
           this.products = res.data.data;
         })

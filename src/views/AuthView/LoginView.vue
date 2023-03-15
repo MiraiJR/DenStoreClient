@@ -67,7 +67,7 @@ export default {
   methods: {
     onSubmit() {
       axios
-        .post("http://localhost:5000/api/auth/login", this.user)
+        .post("https://denstore-server.onrender.com/api/auth/login", this.user)
         .then((res) => {
           if (res.data.success) {
             this.$router.push("/");

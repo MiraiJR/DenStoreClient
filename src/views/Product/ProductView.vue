@@ -354,13 +354,14 @@ export default {
       priceConvert: "",
       comment: {},
       listComment: [],
+      originalUrl: "https://denstore-server.onrender.com",
     };
   },
   methods: {
     async sendComment() {
       this.comment.idproduct = this.product._id;
       await axios
-        .post(`https://denstore-server.onrender.com/api/comments`, this.comment)
+        .post(`${this.originalUrl}/api/comments`, this.comment)
         .then((res) => {
           this.listComment.push(res.data.comment);
         })
@@ -459,9 +460,7 @@ export default {
       this.stateContentDescription = event.target.id;
       if (this.stateContentDescription == "danh-gia") {
         await axios
-          .get(
-            `https://denstore-server.onrender.com/api/comments/${this.product._id}`
-          )
+          .get(`${this.originalUrl}/api/comments/${this.product._id}`)
           .then((res) => {
             this.listComment = res.data.data;
           })
@@ -478,7 +477,7 @@ export default {
     const idProduct = path.value.split("/")[2];
 
     await axios
-      .get(`https://denstore-server.onrender.com/api/products/${idProduct}`)
+      .get(`${this.originalUrl}/api/products/${idProduct}`)
       .then((res) => {
         this.product = res.data.data;
         this.curImage = this.product.productimage[0];

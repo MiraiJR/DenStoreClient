@@ -220,6 +220,7 @@ export default {
       productsInCart: [],
       inputSearch: "",
       productsAfterSearch: [],
+      originalUrl: "https://denstore-server.onrender.com",
     };
   },
   methods: {
@@ -236,7 +237,7 @@ export default {
     handleSearch() {
       if (this.inputSearch === "") {
         axios
-          .get(`http://localhost:5000/api/products/search/get/all`)
+          .get(`${this.originalUrl}/api/products/search/get/all`)
           .then((res) => {
             this.productsAfterSearch = res.data.data;
           })
@@ -246,7 +247,7 @@ export default {
           });
       } else {
         axios
-          .get(`http://localhost:5000/api/products/search/${this.inputSearch}`)
+          .get(`${this.originalUrl}/api/products/search/${this.inputSearch}`)
           .then((res) => {
             this.productsAfterSearch = res.data.data;
           })
